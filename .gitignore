@@ -1,0 +1,6 @@
+*.html
+*.pyc
+__pycache__/*
+.idea/
+data/*.csv
+

@@ -7,7 +7,7 @@ debug = False
 
 
 def pick_two(n):
-    all_nums = range(n)
+    all_nums = list(range(n))
     np.random.shuffle(all_nums)
     first = all_nums.pop()
     np.random.shuffle(all_nums)
@@ -21,11 +21,11 @@ def corrupt_file(file_name=None):
     np.random.seed(params.random_seed)
     assert file_name.endswith('.csv')
     outfile = file_name.replace('.csv', '_corrupted.csv')
-    data = csv.DictReader(open(file_name, 'rU'))
-    field_names = data.fieldnames
+    data = csv.DictReader(open(file_name, 'r'))
+    field_names = ['customer_id', 'age', 'amount']
     fnc = [f for f in data.fieldnames]
     n_fields = len(field_names)
-    col_index = range(n_fields)
+    col_index = list(range(n_fields))
     out = open(outfile, 'w')
     line = ','.join(field_names)
     out.write(line+'\n')
@@ -38,8 +38,8 @@ def corrupt_file(file_name=None):
                 and line_num > 0:
             first, second = pick_two(n_fields)
             if debug:
-                print 'line: %s swapping %s, %s: %s, %s' \
-                      % (line_num, first, second, fnc[first], fnc[second])
+                print('line: %s swapping %s, %s: %s, %s' \
+                      % (line_num, first, second, fnc[first], fnc[second]))
             col_index[first], col_index[second] \
                 = col_index[second], col_index[first]
             fnc[first], fnc[second] = fnc[second], fnc[first]
