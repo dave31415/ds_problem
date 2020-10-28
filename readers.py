@@ -4,6 +4,7 @@ import params
 from collections import Counter
 from math import exp
 from random import Random
+import os
 data_dir = 'data'
 
 
@@ -79,6 +80,10 @@ def read_ledger_file():
     :return: list of Person dicts
     """
     file_name = "%s/%s" % (params.data_dir, params.ledger_file)
+    if not os.path.exists(file_name):
+        print('File: %s not found' % file_name)
+        return []
+
     return list(csv.DictReader(open(file_name, 'r')))
 
 

@@ -7,7 +7,9 @@ import params
 
 def make_histograms():
     output_file('junk.html')
-    data = list(read_ledger_file())
+    data = read_ledger_file()
+    if len(data) == 0:
+        return
 
     age = [int(i['age']) for i in data]
     amount = [int(i['amount']) for i in data]
@@ -42,18 +44,13 @@ def make_histograms():
 
 def make_histograms_corrupt():
     output_file('junk2.html')
-    data = list(read_corrupted_ledger_file())
+    data = read_corrupted_ledger_file()
 
     amount = [int(i['amount']) for i in data]
 
     fig = figure(width=900, height=600)
     x_range = [0, 2000]
     add_hist_plot(amount, fig, x_range=x_range, n_bins=200, color='red', normalize=True)
-
-    x = np.linspace(0, x_range[1], x_range[1])
-    y = np.ones(x_range[1])/params.num_lines
-    fig.line(x, y, color='black', alpha=0.6, line_dash='dashed')
-
     show(fig)
 
 
