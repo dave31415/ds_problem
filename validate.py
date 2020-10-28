@@ -22,8 +22,8 @@ def validate_ledger(ledger_corrected, use_corrupted=True, debug=False):
     num_corrected = len(ledger_corrected)
 
     if num_corrected != num_lines:
-        print('Warning, files are not the same size')
-        print('Ledger: %s, Ledger_corrected: %s' % (num_lines, num_corrected))
+        raise ValueError('Error, files are not the same size: Ledger: %s, '
+                         'Ledger_corrected: %s' % (num_lines, num_corrected))
 
     line_num = 0
     num_correct = 0
@@ -38,6 +38,12 @@ def validate_ledger(ledger_corrected, use_corrupted=True, debug=False):
         if sum_line != sum_line_corr:
             raise ValueError('Line %s does not have the right sum'
                              'file might be out of order' % line_num)
+
+        if line_num == 0 and set(line.keys()) != set(line_corr.keys()):
+            keys_expected = sorteed(list(line.keys())).__repr__()
+            keys_got = sorted(list(line.keys())).__repr__()
+            raise ValueError('Does not have the expected keys. '
+                             'Expected: %s, Got: %s' % (keys_expected, keys_got))
 
         if line == line_corr:
             # correct
@@ -73,12 +79,16 @@ def validate_ledger(ledger_corrected, use_corrupted=True, debug=False):
         for k, v in results.items():
             print("\t%s: %s" % (k, v))
 
+    return percent_recovered
+
 
 if __name__ == "__main__":
     use_corrupt = True
     filename = sys.argv[1]
     if len(sys.argv) > 2:
-        if sys.argv[2] == 'real':
+        if sys.argv[2] == 'score':
             use_corrupt = False
 
     result = validate_file(filename, use_corrupted=use_corrupt)
+    if not use_corrupt:
+        print(result)
