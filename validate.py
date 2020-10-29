@@ -2,13 +2,15 @@ import csv
 import sys
 from readers import read_ledger_file, read_corrupted_ledger_file
 
+debug = True
+
 
 def validate_file(file_name, use_corrupted=False):
     ledger_corrected = list(csv.DictReader(open(file_name, 'r')))
     return validate_ledger(ledger_corrected, use_corrupted=use_corrupted)
 
 
-def validate_ledger(ledger_corrected, use_corrupted=True, debug=False):
+def validate_ledger(ledger_corrected, use_corrupted=True):
     if use_corrupted:
         print('Using corrupted file as original file just '
               'in order to validate file structure')
@@ -17,6 +19,8 @@ def validate_ledger(ledger_corrected, use_corrupted=True, debug=False):
     else:
         print('Validating and calculating score against actual original')
         ledger = read_ledger_file()
+
+    actual_due_lookup = {row['customer_id']: int(row['amount']) for row in ledger}
 
     num_lines = len(ledger)
     num_corrected = len(ledger_corrected)
@@ -40,7 +44,7 @@ def validate_ledger(ledger_corrected, use_corrupted=True, debug=False):
                              'file might be out of order' % line_num)
 
         if line_num == 0 and set(line.keys()) != set(line_corr.keys()):
-            keys_expected = sorteed(list(line.keys())).__repr__()
+            keys_expected = sorted(list(line.keys())).__repr__()
             keys_got = sorted(list(line.keys())).__repr__()
             raise ValueError('Does not have the expected keys. '
                              'Expected: %s, Got: %s' % (keys_expected, keys_got))
@@ -50,21 +54,31 @@ def validate_ledger(ledger_corrected, use_corrupted=True, debug=False):
             num_correct += 1
             total_collected += int(line_corr['amount'])
         else:
+            cust_id_guessed = line_corr['customer_id']
+            amount_guessed = int(line_corr['amount'])
+            actually_due = actual_due_lookup.get(cust_id_guessed, 0)
+            if amount_guessed <= actually_due:
+                # customer still pays what you say they owe
+                # when it is less than what they actually owe
+                total_collected += int(line_corr['amount'])
+            else:
+                # customer does not pay, no net amount collected
+                pass
+
             # line is wrong
             if debug and not use_corrupted:
-                sep = '---------------------'
-                print(sep)
-                print('original')
-                print(line)
-                print('corrected')
-                print(line_corr)
-            pass
+                if line_corr != line:
+                    sep = '---------------------'
+                    print(sep)
+                    print('original, line: %s' % line_num)
+                    print(line)
+                    print('corrected')
+                    print(line_corr)
 
         actual_amount_total += int(line['amount'])
         line_num += 1
 
     print('Input file is valid')
-    num_lines = line_num + 1
 
     percent_correct = (100.0 * num_correct)/num_lines
     percent_recovered = (100.0 * total_collected) / actual_amount_total

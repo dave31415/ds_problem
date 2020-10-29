@@ -1,8 +1,6 @@
 import csv
 import numpy as np
 import params
-from collections import Counter
-from math import exp
 from random import Random
 import os
 data_dir = 'data'
@@ -12,7 +10,7 @@ def make_id_picker():
     rand = Random()
     rand.seed(37464)
     num_lines = params.num_lines
-    n = int(2.8 * num_lines)
+    n = int(params.total_cust_to_current_cust * num_lines)
     ids = list(range(n))
     rand.shuffle(ids)
     ids = ids[0:num_lines]
@@ -31,8 +29,6 @@ def make_person_picker():
     """
 
     id_picker = make_id_picker()
-
-    print(params)
 
     def pick():
         age_sigma = params.age_sigma

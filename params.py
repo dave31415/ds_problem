@@ -9,3 +9,4 @@ age_sigma = 17.0
 amount_lognormal_mu = 4.0
 amount_lognormal_sigma = 1.4
 amount_percent_zero = 0.02
+total_cust_to_current_cust = 2.8
