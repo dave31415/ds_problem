@@ -2,7 +2,7 @@ from readers import read_corrupted_ledger_file
 from utils import write_file
 
 # 8:35 to 8:43 about 10 minutes
-# 94.51867579918238
+# 73.77279061625134
 
 field_names = ['customer_id', 'age', 'amount']
 

@@ -1,5 +1,4 @@
 import numpy as np
-from itertools import cycle
 from bokeh.models import Band, ColumnDataSource
 from bokeh.plotting import figure, show
 
@@ -32,4 +31,5 @@ def err_plot(fig, x, y, y_err, fill_color='gray'):
     band = Band(base='base', lower='lower', upper='upper', source=source,
                 level='underlay', fill_alpha=0.2, line_width=1,
                 line_color='black', fill_color=fill_color)
+
     fig.add_layout(band)

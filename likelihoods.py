@@ -37,8 +37,8 @@ def like_amount(xx):
         return 1e-20
 
     pi = 3.14159
-    mu = 4.0
-    sig = 1.4
+    mu = 5.0
+    sig = 1.8
     norm = 1.0 / (np.sqrt(2 * pi) * sig * x)
     u = ((np.log(x) - mu) / sig) ** 2
     u = min(u, 100)

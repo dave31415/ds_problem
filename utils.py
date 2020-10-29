@@ -1,6 +1,11 @@
 import csv
+from tempfile import NamedTemporaryFile
 
 field_names = ['customer_id', 'age', 'amount']
+
+
+def get_temp_html():
+    return NamedTemporaryFile().name+'.html'
 
 
 def write_file(data, file_name):

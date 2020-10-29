@@ -3,7 +3,7 @@ from utils import write_file, batch_stream
 from max_like import find_best_perm
 
 # Over an hour
-# 99.89585972612225 %
+# 97.78753713962284 %
 
 field_names = ['customer_id', 'age', 'amount']
 debug = False
