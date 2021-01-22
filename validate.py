@@ -92,3 +92,5 @@ def validate_ledger(ledger_corrected, use_corrupted=True):
     if not use_corrupted:
         for k, v in results.items():
             print("\t%s: %s" % (k, v))
+
+    return percent_recovered

@@ -8,4 +8,4 @@ def main(*args):
         if args[1] == 'score':
             use_corrupt = False
 
-    validate_file(filename, use_corrupted=use_corrupt)
+    return validate_file(filename, use_corrupted=use_corrupt)
