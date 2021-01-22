@@ -92,7 +92,7 @@ def like_amount(xx):
         # this models a spike at 0
         return 0.02
 
-    if x > 1000:
+    if x > 4000:
         # make it constant but small at very high values rather
         # than evaluating the log-normal there. There is really no
         # great way to check the tails all that well.
