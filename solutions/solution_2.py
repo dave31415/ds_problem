@@ -7,6 +7,15 @@ from solutions.max_like import find_best_perm
 
 
 def run_solution_2():
+    """
+    This technique has been refactored since it is now a simple case of
+    solution_3 where we use a 1-row buffer and do it line by line,
+    rather than buffer by buffer. It is a maximum likelihood
+    technique. This method was in fact designed only a stop on the way
+    to solution_3.
+    See solution_3 documentation.
+    :return:
+    """
     corrupted = read_corrupted_ledger_file()
     data_fixed = []
     for line in corrupted:

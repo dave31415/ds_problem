@@ -74,3 +74,27 @@ def find_best_perm(values_lists, index_prior=None):
             print(row)
 
     return reordered, probability, index_best
+
+
+def count_n_same(list_1, list_2):
+    return sum([l_1 == l_2 for l_1, l_2 in zip(list_1, list_2)])
+
+
+def make_index_prior(index_best):
+    # alpha is probability of not mutating, a guess
+    alpha = 0.85
+    ep = 1e-10
+    indices = list(range(len(orderings)))
+    prior = []
+    for index in indices:
+        if index == index_best:
+            prior.append(alpha)
+        else:
+            ordering = orderings[index]
+            ordering_best = orderings[index_best]
+
+            if count_n_same(ordering, ordering_best) == 1:
+                prior.append((1-alpha-ep)/3.0)
+            else:
+                prior.append(ep)
+    return prior
