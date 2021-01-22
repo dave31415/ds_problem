@@ -1,11 +1,16 @@
 import csv
-from tempfile import NamedTemporaryFile
 
+data_dir = 'data'
 field_names = ['customer_id', 'age', 'amount']
 
 
-def get_temp_html():
-    return NamedTemporaryFile().name+'.html'
+def read_corrupted_ledger_file():
+    """
+    Returns a generator to the corrupted data file
+    :return:
+    """
+    file_name = "%s/%s" % (data_dir, 'ledger_corrupted.csv')
+    return list(csv.DictReader(open(file_name, 'r')))
 
 
 def write_file(data, file_name):

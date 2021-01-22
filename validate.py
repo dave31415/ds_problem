@@ -1,8 +1,7 @@
 import csv
-import sys
-from readers import read_ledger_file, read_corrupted_ledger_file
+from simulate.readers import read_ledger_file, read_corrupted_ledger_file
 
-debug = True
+debug = False
 
 
 def validate_file(file_name, use_corrupted=False):
@@ -94,15 +93,3 @@ def validate_ledger(ledger_corrected, use_corrupted=True):
             print("\t%s: %s" % (k, v))
 
     return percent_recovered
-
-
-if __name__ == "__main__":
-    use_corrupt = True
-    filename = sys.argv[1]
-    if len(sys.argv) > 2:
-        if sys.argv[2] == 'score':
-            use_corrupt = False
-
-    result = validate_file(filename, use_corrupted=use_corrupt)
-    if not use_corrupt:
-        print(result)

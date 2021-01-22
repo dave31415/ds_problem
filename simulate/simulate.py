@@ -1,8 +1,8 @@
 import csv
 import numpy as np
-import params
-import readers
-from utils import write_file
+from simulate import params
+from simulate import readers
+from utils.utils import write_file
 
 
 debug = False
@@ -54,6 +54,7 @@ def corrupt_file(file_name=None):
     write_file(corrupted_data, outfile)
 
 
-if __name__ == "__main__":
+def create_files():
     readers.write_people_file()
     corrupt_file()
+

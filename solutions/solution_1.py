@@ -1,5 +1,5 @@
-from readers import read_corrupted_ledger_file
-from utils import write_file
+from solutions.file_io import read_corrupted_ledger_file
+from solutions.file_io import write_file
 
 # 8:35 to 8:43 about 10 minutes
 # 73.77279061625134
@@ -27,7 +27,3 @@ def run_solution_1():
         data_fixed.append(row_fixed)
 
     write_file(data_fixed, 'data/ledger_fixed_1.csv')
-
-
-if __name__ == "__main__":
-    run_solution_1()

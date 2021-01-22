@@ -1,9 +1,10 @@
 import csv
 import numpy as np
-import params
+from simulate import params
 from random import Random
 import os
 data_dir = 'data'
+from utils.utils import ensure_dir_exists
 
 
 def make_id_picker():
@@ -56,6 +57,7 @@ def write_people_file(num=params.num_lines):
     :param num: number of lines to write
     :return: None
     """
+    ensure_dir_exists(data_dir)
     np.random.seed(params.random_seed)
     person_picker = make_person_picker()
     people = [person_picker() for _ in range(num)]
@@ -97,7 +99,7 @@ def stream_buffers():
     :param buffer_size:
     :return:
     """
-    reader = read_corrupted_people_file()
+    reader = read_corrupted_ledger_file()
     buffer = []
     for line_num, line in enumerate(reader):
         buffer.append(line)

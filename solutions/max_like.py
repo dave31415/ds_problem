@@ -1,6 +1,6 @@
 import numpy as np
 from itertools import permutations
-import likelihoods
+from solutions import likelihoods
 
 
 field_names = ['customer_id', 'age', 'amount']
@@ -22,7 +22,6 @@ prob_funcs = {'age': likelihoods.like_age,
 def find_best_perm(values_lists):
     values_reordered = None
     probs = None
-    values = None
 
     if debug:
         print('##############')

@@ -1,10 +1,13 @@
-from readers import read_ledger_file, read_corrupted_ledger_file
-from plot_utils import add_hist_plot
+from simulate.readers import read_ledger_file
+from simulate import params
+
+from solutions.file_io import read_corrupted_ledger_file
+from solutions import likelihoods
+from utils.plot_utils import add_hist_plot
+
 from bokeh.plotting import figure, show, output_file
 from tempfile import NamedTemporaryFile
 import numpy as np
-import params
-import likelihoods
 
 
 def plot_likes(x_range, fig, with_all=False):
@@ -78,8 +81,3 @@ def make_histograms_corrupt():
 
     plot_likes(x_range, fig, with_all=True)
     show(fig)
-
-
-if __name__ == "__main__":
-    make_histograms()
-    make_histograms_corrupt()
