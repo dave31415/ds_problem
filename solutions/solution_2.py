@@ -11,7 +11,7 @@ def run_solution_2():
     data_fixed = []
     for line in corrupted:
         values = list(line.values())
-        rows_fixed = find_best_perm([values])
+        rows_fixed, probability, _ = find_best_perm([values])
         data_fixed.extend(rows_fixed)
 
     write_file(data_fixed, 'data/ledger_fixed_2.csv')

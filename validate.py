@@ -5,6 +5,7 @@ debug = False
 
 
 def validate_file(file_name, use_corrupted=False):
+    print('\nValidating: %s' % file_name)
     ledger_corrected = list(csv.DictReader(open(file_name, 'r')))
     return validate_ledger(ledger_corrected, use_corrupted=use_corrupted)
 
@@ -91,5 +92,3 @@ def validate_ledger(ledger_corrected, use_corrupted=True):
     if not use_corrupted:
         for k, v in results.items():
             print("\t%s: %s" % (k, v))
-
-    return percent_recovered

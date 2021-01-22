@@ -19,6 +19,8 @@ def run_python_script(script_name, *args, **kwargs):
         from scripts import solution_2 as executable_script
     elif script_name == "solution_3":
         from scripts import solution_3 as executable_script
+    elif script_name == "solution_4":
+        from scripts import solution_4 as executable_script
     elif script_name == "validate":
         from scripts import validate as executable_script
     elif script_name == "plots":
