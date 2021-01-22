@@ -68,7 +68,7 @@ def like_age(xx):
 
     pi = 3.14159
     mu = 18.0
-    sig = 17.0
+    sig = 18.5
     norm = 2.0 / (np.sqrt(2 * pi) * sig)
     u = ((x - mu) / sig) ** 2
     u = min(u, 100)
@@ -90,7 +90,7 @@ def like_amount(xx):
 
     if x == 0:
         # this models a spike at 0
-        return 0.02
+        return 0.022
 
     if x > 4000:
         # make it constant but small at very high values rather
@@ -102,8 +102,8 @@ def like_amount(xx):
 
     # otherwise, a regular log-normal distribution
     pi = 3.14159
-    mu = 5.0
-    sig = 1.8
+    mu = 5.3
+    sig = 1.85
     norm = 1.0 / (np.sqrt(2 * pi) * sig * x)
     u = ((np.log(x) - mu) / sig) ** 2
     u = min(u, 100)
